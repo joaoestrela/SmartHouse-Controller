@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateToolbarText(CharSequence text) {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle(text);
+            actionBar.setTitle(getString(R.string.app_name)+ " - " + text);
         }
     }
 
