@@ -16,6 +16,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dependencies {
+        compileOnly 'javax.annotation:jsr250-api:1.0'
+    }
 }
 
 dependencies {

@@ -11,18 +11,28 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.R;
+import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.AuthenticationApi;
+import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.LoginInfo;
+import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.ModelAPIResponse;
+import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.network.RetrofitClientInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText et_email;
     private EditText et_password;
+    private AuthenticationApi authenticationApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        authenticationApi = RetrofitClientInstance.getRetrofitInstance().create(AuthenticationApi.class);
         et_email = findViewById(R.id.input_email);
         et_password = findViewById(R.id.input_password);
         et_email.addTextChangedListener(new TextWatcher() {
@@ -48,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
-
         et_password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -103,15 +112,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void submitLogin(){
-        //TODO: Make server authentication
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
-        if(true){
-            goMainActivity();
-        }
-        else{
-
-        }
-        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+        LoginInfo loginInfo = new LoginInfo();
+        loginInfo.setUsername(et_email.getText().toString());
+        loginInfo.setPassword(et_password.getText().toString());
+        Call<ModelAPIResponse> call = authenticationApi.login(new LoginInfo());
+        call.enqueue(new Callback<ModelAPIResponse>() {
+            @Override
+            public void onResponse(Call<ModelAPIResponse> call, Response<ModelAPIResponse> response) {
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                //TODO: DEFINE CODE FOR OK LOGIN
+                if(response.body().getCode() == 2) goMainActivity();
+                Toast.makeText(LoginActivity.this, "Something went wrong... Please try later!", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<ModelAPIResponse> call, Throwable t) {
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+            }
+        });
     }
 
     private void goMainActivity(){
