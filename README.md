@@ -1,8 +1,8 @@
 # SmartHouse-Controller
 
-Android application allows to control house an house with [SmartHouse Server](https://github.com/Evilong/SmartHouse-server).
+Android application allows to control the lighting and music of an house.
 
-Uses [SmartHouse API](https://app.swaggerhub.com/apis/Evilong/SmartHouse/).
+Uses [SmartHouse API](https://app.swaggerhub.com/apis/Evilong/SmartHouse/) to communicate with [SmartHouse Server](https://github.com/Evilong/SmartHouse-server).
 
 ## Features
 - Turn on/off lights
