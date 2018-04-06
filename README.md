@@ -13,11 +13,11 @@ Uses [SmartHouse API](https://app.swaggerhub.com/apis/Evilong/SmartHouse/).
 - Modify house global settings
 - Modify specific lights settings
 
-##Requirements
+## Requirements
 - Android Version >= 15
 - Connection to SmartHouse network
 
-##Dependencies
+## Dependencies
 - [Android Support Library](https://developer.android.com/topic/libraries/support-library)
 - [OkHTTP3](http://square.github.io/okhttp/)
 - [Retrofit2](http://square.github.io/retrofit/)
