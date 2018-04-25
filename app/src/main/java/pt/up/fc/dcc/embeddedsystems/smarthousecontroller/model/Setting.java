@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Setting
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-04-25T18:48:02.476Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-04-25T18:58:57.843Z")
 public class Setting {
   @SerializedName("automatic")
   private Boolean automatic = null;

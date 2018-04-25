@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * MusicPlayerStatus
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-04-25T18:48:02.476Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-04-25T18:58:57.843Z")
 public class MusicPlayerStatus {
   @SerializedName("status")
   private Boolean status = null;

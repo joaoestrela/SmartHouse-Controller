@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Light
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-04-25T18:48:02.476Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-04-25T18:58:57.843Z")
 public class Light {
   @SerializedName("id")
   private Integer id = null;
@@ -31,8 +31,8 @@ public class Light {
   @SerializedName("description")
   private String description = null;
 
-  @SerializedName("turnon")
-  private Boolean turnon = null;
+  @SerializedName("lit")
+  private Boolean lit = null;
 
   @SerializedName("threshold")
   private BigDecimal threshold = null;
@@ -76,22 +76,22 @@ public class Light {
     this.description = description;
   }
 
-  public Light turnon(Boolean turnon) {
-    this.turnon = turnon;
+  public Light lit(Boolean lit) {
+    this.lit = lit;
     return this;
   }
 
    /**
-   * Get turnon
-   * @return turnon
+   * Get lit
+   * @return lit
   **/
   @ApiModelProperty(required = true, value = "")
-  public Boolean isTurnon() {
-    return turnon;
+  public Boolean isLit() {
+    return lit;
   }
 
-  public void setTurnon(Boolean turnon) {
-    this.turnon = turnon;
+  public void setLit(Boolean lit) {
+    this.lit = lit;
   }
 
   public Light threshold(BigDecimal threshold) {
@@ -142,14 +142,14 @@ public class Light {
     Light light = (Light) o;
     return Objects.equals(this.id, light.id) &&
         Objects.equals(this.description, light.description) &&
-        Objects.equals(this.turnon, light.turnon) &&
+        Objects.equals(this.lit, light.lit) &&
         Objects.equals(this.threshold, light.threshold) &&
         Objects.equals(this.automatic, light.automatic);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, description, turnon, threshold, automatic);
+    return Objects.hash(id, description, lit, threshold, automatic);
   }
 
 
@@ -160,7 +160,7 @@ public class Light {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    turnon: ").append(toIndentedString(turnon)).append("\n");
+    sb.append("    lit: ").append(toIndentedString(lit)).append("\n");
     sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
     sb.append("    automatic: ").append(toIndentedString(automatic)).append("\n");
     sb.append("}");
