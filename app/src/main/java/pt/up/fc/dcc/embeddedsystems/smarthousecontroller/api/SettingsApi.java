@@ -1,38 +1,24 @@
 package pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api;
 
-import java.util.List;
-
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.Setting;
+import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.StatusResponse;
 import retrofit2.Call;
-import retrofit2.http.GET;
 import retrofit2.http.Headers;
-import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface SettingsApi {
   /**
    * 
    * set global settings
    * @param settings  (required)
-   * @return Call&lt;List&lt;Setting&gt;&gt;
+   * @return Call&lt;StatusResponse&gt;
    */
   @Headers({
     "Content-Type:application/json"
   })
-  @POST("settings/home/")
-  Call<List<Setting>> setHomeSettings(
-    @retrofit2.http.Body List<Setting> settings
+  @PUT("settings/home/")
+  Call<StatusResponse> setHomeSettings(
+    @retrofit2.http.Body Setting settings
   );
-
-  /**
-   * 
-   * get all global settings
-   * @return Call&lt;List&lt;Setting&gt;&gt;
-   */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @GET("settings/home/")
-  Call<List<Setting>> settings();
-    
 
 }

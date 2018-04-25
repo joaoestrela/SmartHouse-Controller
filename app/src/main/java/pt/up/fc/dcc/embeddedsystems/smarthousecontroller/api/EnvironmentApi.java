@@ -17,7 +17,7 @@ public interface EnvironmentApi {
     "Content-Type:application/json"
   })
   @GET("luminosity")
-  Call<SensorData> luminositySummary();
+  Call<SensorData> luminosity();
     
 
   /**
@@ -29,7 +29,7 @@ public interface EnvironmentApi {
     "Content-Type:application/json"
   })
   @GET("luminosity/history")
-  Call<List<SensorData>> luminositySummaryHistory();
+  Call<List<SensorData>> luminosityHistory();
     
 
   /**
@@ -41,7 +41,7 @@ public interface EnvironmentApi {
     "Content-Type:application/json"
   })
   @GET("temperature")
-  Call<SensorData> temperatureSummary();
+  Call<SensorData> temperature();
     
 
   /**
@@ -53,7 +53,7 @@ public interface EnvironmentApi {
     "Content-Type:application/json"
   })
   @GET("temperature/history")
-  Call<List<SensorData>> temperatureSummaryHistory();
+  Call<List<SensorData>> temperatureHistory();
     
 
 }

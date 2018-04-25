@@ -11,12 +11,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.R;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.AuthenticationApi;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.LoginInfo;
-import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.ModelAPIResponse;
+import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.StatusResponse;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.network.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -116,18 +115,16 @@ public class LoginActivity extends AppCompatActivity {
         LoginInfo loginInfo = new LoginInfo();
         loginInfo.setUsername(et_email.getText().toString());
         loginInfo.setPassword(et_password.getText().toString());
-        Call<ModelAPIResponse> call = authenticationApi.login(new LoginInfo());
-        call.enqueue(new Callback<ModelAPIResponse>() {
+        Call<StatusResponse> call = authenticationApi.login(new LoginInfo());
+        call.enqueue(new Callback<StatusResponse>() {
             @Override
-            public void onResponse(Call<ModelAPIResponse> call, Response<ModelAPIResponse> response) {
-                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                //TODO: DEFINE CODE FOR OK LOGIN
-                if(response.body().getCode() == 2) goMainActivity();
-                Toast.makeText(LoginActivity.this, "Something went wrong... Please try later!", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+
             }
+
             @Override
-            public void onFailure(Call<ModelAPIResponse> call, Throwable t) {
-                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+            public void onFailure(Call<StatusResponse> call, Throwable t) {
+
             }
         });
     }
