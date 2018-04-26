@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -119,12 +120,15 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
-
+                if(response.code() ==  200) goMainActivity();
+                else Log.d("Login", response.message());
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<StatusResponse> call, Throwable t) {
-
+                Log.d("Login", t.getMessage());
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             }
         });
     }

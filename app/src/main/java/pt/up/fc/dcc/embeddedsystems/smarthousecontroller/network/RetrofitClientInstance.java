@@ -1,7 +1,16 @@
 package pt.up.fc.dcc.embeddedsystems.smarthousecontroller.network;
 
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
+import java.net.CookieHandler;
+import java.net.CookieManager;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.CookieJar;
+import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -11,7 +20,7 @@ public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
     //TODO: DEFINE BASE URL
-    private static final String BASE_URL = "";
+    private static final String BASE_URL = "http:/127.0.0.1:8888/SmartHouse/1.0.2/";
     private static OkHttpClient okHttpClient;
 
     public static Retrofit getRetrofitInstance(){
@@ -19,7 +28,6 @@ public class RetrofitClientInstance {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         if (retrofit == null) {
             okHttpClient = new OkHttpClient.Builder().addNetworkInterceptor(interceptor)
-                    //.cookieJar(cookieJar)
                     .connectTimeout(10, TimeUnit.SECONDS)
                     .writeTimeout(10, TimeUnit.SECONDS)
                     .readTimeout(30, TimeUnit.SECONDS)
