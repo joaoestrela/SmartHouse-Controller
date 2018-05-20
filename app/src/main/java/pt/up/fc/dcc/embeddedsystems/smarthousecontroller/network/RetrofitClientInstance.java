@@ -20,7 +20,7 @@ public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
     //TODO: DEFINE BASE URL
-    private static final String BASE_URL = "http:/127.0.0.1:8888/SmartHouse/1.0.2/";
+    private static final String BASE_URL = "http://192.168.1.72:8888/SmartHouse/1.0.2/";
     private static OkHttpClient okHttpClient;
 
     public static Retrofit getRetrofitInstance(){
