@@ -4,12 +4,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.SettingsFragment">
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_gravity="center"
-        android:text="Switch" />
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Automatic Lighting"
+            android:textAlignment="center"/>
+        <ToggleButton
+            android:id="@+id/s_auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="Automatic" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lighting Luminosity Threshold"
+            android:textAlignment="center"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <NumberPicker
+                android:id="@+id/int_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:textSize="20sp"
+                android:text="."/>
+            <NumberPicker
+                android:id="@+id/dec_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/settings_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The current setting aren't applied !"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_light"
+            android:visibility="gone" />
+        <Button
+            android:id="@+id/btn_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apply"/>
+    </LinearLayout>
+    <include layout="@layout/loading_overlay" />
 </FrameLayout>
