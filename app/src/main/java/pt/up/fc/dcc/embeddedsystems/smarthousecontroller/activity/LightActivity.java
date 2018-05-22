@@ -44,16 +44,16 @@ public class LightActivity extends AppCompatActivity {
             final Call<Light> stateLights = lightsApi.getLightState(id);
 
             stateLights.enqueue(new Callback<Light>() {
-
                 @Override
                 public void onResponse(Call<Light> call, Response<Light> response) {
                     if (!response.isSuccessful()){
                         Log.i("Erro de resposta: ", "" + response.code());
                     } else {
+                        Log.i("info",response.toString());
                         toolbar.setTitle(response.body().getDescription().toString());
                         id_textview.setText(response.body().getId().toString());
                         //TODO: THIS IS DEPRECATED
-                        textview5.setText(response.body().getThreshold().toString());
+                        /*textview5.setText(response.body().getThreshold().toString());
 
                         if (!response.body().isAutomatic()){
                             toggleButton.setChecked(false);
@@ -61,8 +61,7 @@ public class LightActivity extends AppCompatActivity {
                         } else {
                             toggleButton.setChecked(true);
                             toggleButton.setBackgroundColor(24);
-                        }
-
+                        }*/
                     }
                 }
 

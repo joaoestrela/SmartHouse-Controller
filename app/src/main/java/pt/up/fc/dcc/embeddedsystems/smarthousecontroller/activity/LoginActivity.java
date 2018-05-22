@@ -120,6 +120,8 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                //TODO: REMOVE NO THE LINE BELLOW... IT SKIPS AUTH
+                goMainActivity();
                 if(response.code() ==  200) goMainActivity();
                 else Log.d("Login", response.message());
                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);

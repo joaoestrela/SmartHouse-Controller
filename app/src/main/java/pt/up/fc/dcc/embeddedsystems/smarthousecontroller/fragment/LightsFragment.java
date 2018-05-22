@@ -66,6 +66,8 @@ public class LightsFragment extends Fragment {
                 if (!response.isSuccessful()) {
                     Log.i("Erro de resposta: ", "" + response.code());
                 } else {
+                    Log.i("Lights",response.toString());
+                    if(response.body() == null) return;
                     lightsList = response.body();
 
                     List<Map<String, String>> data = new ArrayList<>();
@@ -99,9 +101,7 @@ public class LightsFragment extends Fragment {
 
                 Intent intent = new Intent(ListViewLights.getContext(), LightActivity.class);
                 intent.putExtra("id",lightsList.get(position).getId().toString());
-
                 startActivity(intent);
-
 
                 //TODO: create custom dialog
                 //alertDialogBuilder.setMessage(lightsList.get(position).getThreshold().toString())
