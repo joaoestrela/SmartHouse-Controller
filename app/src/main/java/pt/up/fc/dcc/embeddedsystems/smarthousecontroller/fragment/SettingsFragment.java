@@ -107,7 +107,7 @@ public class SettingsFragment extends Fragment {
             public void onClick(final View view) {
                 BigDecimal bd = new BigDecimal(numberPicker1.getValue()+"."+numberPicker2.getValue());
                 bd.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-                setting.setThreshold(bd);
+                setting.setThreshold(new BigDecimal(1023).multiply(bd.divide(new BigDecimal(100))));
                 Call<StatusResponse> call = settingsApi.setHomeSettings(setting);
                 call.enqueue(new Callback<StatusResponse>() {
                     @Override
