@@ -52,6 +52,7 @@ public class LightActivity extends AppCompatActivity {
                     } else {
                         toolbar.setTitle(response.body().getDescription().toString());
                         id_textview.setText(response.body().getId().toString());
+                        //TODO: THIS IS DEPRECATED
                         textview5.setText(response.body().getThreshold().toString());
 
                         if (!response.body().isAutomatic()){

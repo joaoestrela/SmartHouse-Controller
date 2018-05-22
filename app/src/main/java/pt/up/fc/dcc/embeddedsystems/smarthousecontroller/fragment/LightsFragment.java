@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -73,7 +72,7 @@ public class LightsFragment extends Fragment {
                     for (int i=0; i<lightsList.size(); i++) {
                         Map<String, String> datum = new HashMap<>(2);
                         datum.put("title", lightsList.get(i).getDescription());
-                        if(lightsList.get(i).isLit() == null || !lightsList.get(i).isLit()) datum.put("subtitle", "OFF");
+                        if(lightsList.get(i).isTurnon() == null || !lightsList.get(i).isTurnon()) datum.put("subtitle", "OFF");
                         else datum.put("subtitle", "ON");
                         data.add(datum);
                     }

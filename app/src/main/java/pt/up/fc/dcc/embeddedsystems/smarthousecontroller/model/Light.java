@@ -15,7 +15,6 @@ package pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -23,7 +22,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Light
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-04-25T18:58:57.843Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-22T13:13:59.440Z")
 public class Light {
   @SerializedName("id")
   private Integer id = null;
@@ -31,14 +30,8 @@ public class Light {
   @SerializedName("description")
   private String description = null;
 
-  @SerializedName("lit")
-  private Boolean lit = null;
-
-  @SerializedName("threshold")
-  private BigDecimal threshold = null;
-
-  @SerializedName("automatic")
-  private Boolean automatic = null;
+  @SerializedName("turnon")
+  private Boolean turnon = null;
 
   public Light id(Integer id) {
     this.id = id;
@@ -76,58 +69,22 @@ public class Light {
     this.description = description;
   }
 
-  public Light lit(Boolean lit) {
-    this.lit = lit;
+  public Light turnon(Boolean turnon) {
+    this.turnon = turnon;
     return this;
   }
 
    /**
-   * Get lit
-   * @return lit
+   * Get turnon
+   * @return turnon
   **/
   @ApiModelProperty(required = true, value = "")
-  public Boolean isLit() {
-    return lit;
+  public Boolean isTurnon() {
+    return turnon;
   }
 
-  public void setLit(Boolean lit) {
-    this.lit = lit;
-  }
-
-  public Light threshold(BigDecimal threshold) {
-    this.threshold = threshold;
-    return this;
-  }
-
-   /**
-   * Get threshold
-   * @return threshold
-  **/
-  @ApiModelProperty(required = true, value = "")
-  public BigDecimal getThreshold() {
-    return threshold;
-  }
-
-  public void setThreshold(BigDecimal threshold) {
-    this.threshold = threshold;
-  }
-
-  public Light automatic(Boolean automatic) {
-    this.automatic = automatic;
-    return this;
-  }
-
-   /**
-   * Get automatic
-   * @return automatic
-  **/
-  @ApiModelProperty(required = true, value = "")
-  public Boolean isAutomatic() {
-    return automatic;
-  }
-
-  public void setAutomatic(Boolean automatic) {
-    this.automatic = automatic;
+  public void setTurnon(Boolean turnon) {
+    this.turnon = turnon;
   }
 
 
@@ -142,14 +99,12 @@ public class Light {
     Light light = (Light) o;
     return Objects.equals(this.id, light.id) &&
         Objects.equals(this.description, light.description) &&
-        Objects.equals(this.lit, light.lit) &&
-        Objects.equals(this.threshold, light.threshold) &&
-        Objects.equals(this.automatic, light.automatic);
+        Objects.equals(this.turnon, light.turnon);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, description, lit, threshold, automatic);
+    return Objects.hash(id, description, turnon);
   }
 
 
@@ -160,9 +115,7 @@ public class Light {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    lit: ").append(toIndentedString(lit)).append("\n");
-    sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
-    sb.append("    automatic: ").append(toIndentedString(automatic)).append("\n");
+    sb.append("    turnon: ").append(toIndentedString(turnon)).append("\n");
     sb.append("}");
     return sb.toString();
   }

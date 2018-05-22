@@ -1,16 +1,7 @@
 package pt.up.fc.dcc.embeddedsystems.smarthousecontroller.network;
 
-import com.franmontiel.persistentcookiejar.ClearableCookieJar;
-import com.franmontiel.persistentcookiejar.PersistentCookieJar;
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
-
-import java.net.CookieHandler;
-import java.net.CookieManager;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.CookieJar;
-import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
