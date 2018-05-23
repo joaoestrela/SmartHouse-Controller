@@ -1,6 +1,6 @@
 package pt.up.fc.dcc.embeddedsystems.smarthousecontroller.fragment;
 
-
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,10 +28,8 @@ import retrofit2.Response;
 
 public class LightsFragment extends Fragment {
 
-
+    AlertDialog.Builder alertDialogBuilder;
     List<Light> lightsList;
-    public LightsFragment() {
-    }
 
     public static android.support.v4.app.Fragment newInstance() {
         LightsFragment fragment = new LightsFragment();
@@ -43,17 +41,18 @@ public class LightsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lights, container, false);
 
         final ListView ListViewLights = view.findViewById(R.id.ListViewLights);
 
+        alertDialogBuilder = new AlertDialog.Builder(getContext());
+
         LightsApi lightsApi = RetrofitClientInstance.getRetrofitInstance().create(LightsApi.class);
+
         final Call<List<Light>> requestLights = lightsApi.getLights();
         requestLights.enqueue(new Callback<List<Light>>() {
 
@@ -99,6 +98,12 @@ public class LightsFragment extends Fragment {
                 intent.putExtra("id",lightsList.get(position).getId().toString());
                 startActivity(intent);
 
+                //TODO: create custom dialog
+                //alertDialogBuilder.setMessage(lightsList.get(position).getThreshold().toString())
+                //        .setTitle(lightsList.get(position).getDescription());
+
+                //AlertDialog alertDialog = alertDialogBuilder.create();
+                //alertDialog.show();
             }
         });
         return view;

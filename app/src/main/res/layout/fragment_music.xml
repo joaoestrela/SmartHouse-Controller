@@ -4,11 +4,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.MusicFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Now Playing:"
+            android:textSize="48sp"/>
+        <TextView
+            android:id="@+id/text_view_music_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="MUSIC TITLE"
+            android:textSize="32sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Music Fragment" />
+            <Button
+                android:id="@+id/btn_stop"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_stop_black_24dp"
+                android:backgroundTint="@color/primaryTextColor"/>
+
+            <Button
+                android:id="@+id/btn_play"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_play_arrow_black_24dp"
+                android:backgroundTint="@color/primaryTextColor"/>
+
+            <Button
+                android:id="@+id/btn_next"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_skip_next_black_24dp"
+                android:backgroundTint="@color/primaryTextColor"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_playlist"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Check Playlist" />
+    </LinearLayout>
+    <include layout="@layout/loading_overlay" />
 </FrameLayout>

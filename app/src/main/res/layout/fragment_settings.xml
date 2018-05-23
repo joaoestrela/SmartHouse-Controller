@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:text="Lighting Luminosity Threshold"
             android:textAlignment="center"/>
+        <!--
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -53,6 +54,19 @@
                 android:layout_height="wrap_content"
                 android:text="%"/>
         </LinearLayout>
+        -->
+        <TextView
+            android:id="@+id/seek_bar_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center" />
+        <SeekBar
+            android:id="@+id/seek_bar_threshold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:min="0"
+            android:max="1023"
+            android:layout_margin="50dp"/>
         <TextView
             android:id="@+id/settings_message"
             android:layout_width="match_parent"
