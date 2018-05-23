@@ -8,14 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.math.BigDecimal;
-import java.util.Set;
 
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.R;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.SettingsApi;
@@ -62,6 +60,8 @@ public class SettingsFragment extends Fragment {
                 seekBar.setProgress(setting.getThreshold().intValue());
                 getView().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 setting_message.setVisibility(View.GONE);
+                if(setting.isAutomatic()) getView().findViewById(R.id.threshold_layout).setVisibility(View.VISIBLE);
+                else getView().findViewById(R.id.threshold_layout).setVisibility(View.GONE);
             }
 
             @Override
@@ -81,6 +81,8 @@ public class SettingsFragment extends Fragment {
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 setting.automatic(isChecked);
+                if(setting.isAutomatic()) getView().findViewById(R.id.threshold_layout).setVisibility(View.VISIBLE);
+                else getView().findViewById(R.id.threshold_layout).setVisibility(View.GONE);
                 enableApply();
             }
         });
@@ -106,7 +108,6 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(final View view) {
                 BigDecimal bd = new BigDecimal(seekBar.getProgress());
-                Log.d("CONA",seekBar.getProgress()+"");
                 bd.setScale(2, BigDecimal.ROUND_HALF_EVEN);
                 setting.setThreshold(bd);
                 Call<StatusResponse> call = settingsApi.setHomeSettings(setting);

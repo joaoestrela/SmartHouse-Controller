@@ -10,63 +10,51 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Automatic Lighting"
-            android:textAlignment="center"/>
-        <ToggleButton
-            android:id="@+id/s_auto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="Automatic" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lighting Luminosity Threshold"
-            android:textAlignment="center"/>
-        <!--
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-            <NumberPicker
-                android:id="@+id/int_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Automatic Lighting"
+                android:textAlignment="center"/>
+            <ToggleButton
+                android:id="@+id/s_auto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="5dp"
-                android:textSize="20sp"
-                android:text="."/>
-            <NumberPicker
-                android:id="@+id/dec_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="%"/>
+                android:checked="false"
+                android:text="Automatic" />
         </LinearLayout>
-        -->
-        <TextView
-            android:id="@+id/seek_bar_value"
+
+        <LinearLayout
+            android:id="@+id/threshold_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center" />
-        <SeekBar
-            android:id="@+id/seek_bar_threshold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:min="0"
-            android:max="1023"
-            android:layout_margin="50dp"/>
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginVertical="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lighting Luminosity Threshold"
+                android:textAlignment="center"/>
+            <TextView
+                android:id="@+id/seek_bar_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center" />
+            <SeekBar
+                android:id="@+id/seek_bar_threshold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:min="0"
+                android:max="1023"
+                android:layout_marginHorizontal="50dp"/>
+        </LinearLayout>
+
         <TextView
             android:id="@+id/settings_message"
             android:layout_width="match_parent"
@@ -81,5 +69,6 @@
             android:layout_height="wrap_content"
             android:text="Apply"/>
     </LinearLayout>
+
     <include layout="@layout/loading_overlay" />
 </FrameLayout>

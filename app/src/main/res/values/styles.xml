@@ -5,7 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="colorAccent">@color/primaryTextColor</item>
+        <item name="colorAccent">@android:color/holo_green_dark</item>
+        <item name="android:colorControlNormal">@android:color/holo_red_dark</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

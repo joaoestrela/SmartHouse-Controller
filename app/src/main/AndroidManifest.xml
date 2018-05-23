@@ -32,10 +32,10 @@
             android:label="Lights Activity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/> -->
+
         <activity
             android:name=".activity.MainActivity"
             android:label="Main Activity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>

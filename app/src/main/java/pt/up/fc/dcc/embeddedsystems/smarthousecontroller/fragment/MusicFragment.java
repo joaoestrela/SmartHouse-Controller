@@ -10,13 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.math.BigDecimal;
-
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.R;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.MusicApi;
-import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.SettingsApi;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.MusicPlayerStatus;
-import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.Setting;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.StatusResponse;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.network.RetrofitClientInstance;
 import retrofit2.Call;
@@ -49,7 +45,7 @@ public class MusicFragment extends Fragment {
         btn_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<MusicPlayerStatus> call = musicApi.setMusicState("stop");
+                Call<MusicPlayerStatus> call = musicApi.setMusicState("off");
                 call.enqueue(new Callback<MusicPlayerStatus>() {
                     @Override
                     public void onResponse(Call<MusicPlayerStatus> call, Response<MusicPlayerStatus> response) {
@@ -69,7 +65,7 @@ public class MusicFragment extends Fragment {
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<MusicPlayerStatus> call = musicApi.setMusicState("play");
+                Call<MusicPlayerStatus> call = musicApi.setMusicState("on");
                 call.enqueue(new Callback<MusicPlayerStatus>() {
                     @Override
                     public void onResponse(Call<MusicPlayerStatus> call, Response<MusicPlayerStatus> response) {
