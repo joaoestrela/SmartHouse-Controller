@@ -69,6 +69,16 @@
                 android:layout_marginTop="24dp"
                 android:layout_margin="5dp"
                 android:text="@string/login"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginTop="24dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="register" />
         </LinearLayout>
     </ScrollView>
     <include layout="@layout/loading_overlay" />

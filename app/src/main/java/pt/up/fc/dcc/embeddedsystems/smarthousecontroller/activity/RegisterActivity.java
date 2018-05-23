@@ -12,30 +12,42 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.R;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.AuthenticationApi;
-import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.LoginInfo;
+import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.RegistrationInfo;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.StatusResponse;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.network.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
 
-    private EditText et_email;
-    private EditText et_password;
+/**
+ * Created by VP on 23/05/2018.
+ */
+
+public class RegisterActivity extends AppCompatActivity {
+
+
+    private EditText et_username, et_password, et_secret;
     private AuthenticationApi authenticationApi;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
+
         authenticationApi = RetrofitClientInstance.getRetrofitInstance().create(AuthenticationApi.class);
-        et_email = findViewById(R.id.input_email);
-        et_password = findViewById(R.id.input_password);
-        et_email.addTextChangedListener(new TextWatcher() {
+
+        et_username = findViewById(R.id.user_editText);
+        et_password = findViewById(R.id.passw_editText);
+        et_secret = findViewById(R.id.secret_editText);
+
+        et_username.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -43,21 +55,23 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                TextInputLayout textInputLayout = findViewById(R.id.input_email_layout);
-                if (s.length()==0 || !android.util.Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
+                TextInputLayout textInputLayout = findViewById(R.id.user_inputLayout);
+                if (s.length()==0 || !android.util.Patterns.EMAIL_ADDRESS.matcher(s).matches()){
                     textInputLayout.setErrorEnabled(true);
-                    textInputLayout.setError(getString(R.string.error_invalid_email));
+                    textInputLayout.setError("Invalid username!");
                 } else {
                     textInputLayout.setError(null);
                     textInputLayout.setErrorEnabled(false);
                 }
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-            }
 
+            }
         });
+
         et_password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -66,13 +80,13 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                TextInputLayout textInputLayout = findViewById(R.id.input_password_layout);
+                TextInputLayout textInputLayout = findViewById(R.id.passw_inputLayout);
                 if (s.length() < 3) {
                     textInputLayout.setErrorEnabled(true);
-                    textInputLayout.setError(getString(R.string.TooShort));
+                    textInputLayout.setError("Too Short");
                 } else if (s.length() > 10) {
                     textInputLayout.setErrorEnabled(true);
-                    textInputLayout.setError(getString(R.string.TooLarge));
+                    textInputLayout.setError("Too Large");
                 } else {
                     textInputLayout.setError(null);
                     textInputLayout.setErrorEnabled(false);
@@ -80,74 +94,84 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        et_secret.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                TextInputLayout textInputLayout = findViewById(R.id.user_inputLayout);
+                if (s.length() == 0){
+                    textInputLayout.setErrorEnabled(true);
+                    textInputLayout.setError("Invalid secret!");
+                } else {
+                    textInputLayout.setError(null);
+                    textInputLayout.setErrorEnabled(false);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
         });
-        Button btn_login = findViewById(R.id.btn_login);
-        btn_login.setOnClickListener(new View.OnClickListener() {
+
+        Button submit_button = findViewById(R.id.submit_button);
+        submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validate_email(et_email.getText().toString()) &&
-                        validate_password(et_password.getText().toString())){
+
+                if(validate_email(et_username.getText().toString()) &&
+                        validate_password(et_password.getText().toString())) {
                     InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (imm != null) {
                         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     }
-                    submitLogin();
+                    submitRegister();
                 }
-                if(et_email.getText().toString().isEmpty()){
-                    TextInputLayout textInputLayout = findViewById(R.id.input_email_layout);
-                    textInputLayout.setErrorEnabled(true);
-                    textInputLayout.setError(getString(R.string.error_invalid_email));
-                }
-                if(et_password.getText().toString().isEmpty()){
-                    TextInputLayout textInputLayout = findViewById(R.id.input_password_layout);
-                    textInputLayout.setErrorEnabled(true);
-                    textInputLayout.setError(getString(R.string.error_invalid_password));
-                }
-            }
-        });
-        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
-        Button register_button = findViewById(R.id.btn_register);
-        register_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goRegisterActivity();
+                if(et_password.getText().toString().isEmpty()){
+                    TextInputLayout textInputLayout = findViewById(R.id.passw_inputLayout);
+                    textInputLayout.setErrorEnabled(true);
+                    textInputLayout.setError("Invalid Password");
+                }
             }
         });
+
     }
 
-    private void submitLogin(){
-        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
-        LoginInfo loginInfo = new LoginInfo();
-        loginInfo.setUsername(et_email.getText().toString());
-        loginInfo.setPassword(et_password.getText().toString());
-        Call<StatusResponse> call = authenticationApi.login(new LoginInfo());
-        call.enqueue(new Callback<StatusResponse>() {
+    public void submitRegister(){
+        RegistrationInfo registrationInfo = new RegistrationInfo();
+        registrationInfo.setUsername(et_username.getText().toString());
+        registrationInfo.setPassword(et_password.getText().toString());
+        registrationInfo.setSecret(et_secret.getText().toString());
+
+        Call<StatusResponse> new_register = authenticationApi.register(registrationInfo);
+        new_register.enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
-                //TODO: REMOVE NO THE LINE BELLOW... IT SKIPS AUTH
-                goMainActivity();
-                if(response.code() ==  200) goMainActivity();
-                else Log.d("Login", response.message());
-                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                if(response.code() ==  200) goLoginActivity();
+                else Log.d("Register", response.message());
+
+
             }
 
             @Override
             public void onFailure(Call<StatusResponse> call, Throwable t) {
-                Log.d("Login", t.getMessage());
-                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                Log.d("Register", t.getMessage());
+
             }
         });
     }
 
-    private void goMainActivity(){
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-        this.finish();
-    }
 
     public static boolean validate_email(String email){
         return (!email.isEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
@@ -157,10 +181,12 @@ public class LoginActivity extends AppCompatActivity {
         return (!password.isEmpty() && password.length() >= 3 && password.length() < 10);
     }
 
-    private void goRegisterActivity(){
-        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+    private void goLoginActivity(){
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
         this.finish();
     }
+
+
 
 }
