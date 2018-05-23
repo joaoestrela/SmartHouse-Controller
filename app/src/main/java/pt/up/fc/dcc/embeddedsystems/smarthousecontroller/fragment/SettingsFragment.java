@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.NumberPicker;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -31,8 +32,8 @@ public class SettingsFragment extends Fragment {
     SettingsApi settingsApi;
     Setting setting;
     ToggleButton toggle;
-    NumberPicker numberPicker1;
-    NumberPicker numberPicker2;
+    TextView seekBar_value;
+    SeekBar seekBar;
     TextView setting_message;
     Button btn_apply;
 
@@ -58,8 +59,7 @@ public class SettingsFragment extends Fragment {
                 if(setting.isAutomatic() == null) setting.setAutomatic(true);
                 if(setting.getThreshold() == null) setting.setThreshold(new BigDecimal(10.5));
                 toggle.setChecked(setting.isAutomatic());
-                numberPicker1.setValue(setting.getThreshold().intValue());
-                numberPicker2.setValue(setting.getThreshold().remainder(BigDecimal.ONE).movePointLeft(1).intValue());
+                seekBar.setProgress(setting.getThreshold().intValue());
                 getView().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 setting_message.setVisibility(View.GONE);
             }
@@ -73,9 +73,10 @@ public class SettingsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_settings, container, false);
+        final View view =  inflater.inflate(R.layout.fragment_settings, container, false);
         view.findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         setting_message = view.findViewById(R.id.settings_message);
+        seekBar_value = view.findViewById(R.id.seek_bar_value);
         toggle = view.findViewById(R.id.s_auto);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -83,31 +84,31 @@ public class SettingsFragment extends Fragment {
                 enableApply();
             }
         });
-        numberPicker1 = view.findViewById(R.id.int_picker);
-        numberPicker1.setMinValue(0);
-        numberPicker1.setMaxValue(20);
-        numberPicker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        seekBar = view.findViewById(R.id.seek_bar_threshold);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                seekBar_value.setText(progress+"");
                 enableApply();
             }
-        });
-        numberPicker2 = view.findViewById(R.id.dec_picker);
-        numberPicker2.setMinValue(0);
-        numberPicker2.setMaxValue(99);
-        numberPicker2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+
             @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                enableApply();
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
         btn_apply = view.findViewById(R.id.btn_apply);
         btn_apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                BigDecimal bd = new BigDecimal(numberPicker1.getValue()+"."+numberPicker2.getValue());
+                BigDecimal bd = new BigDecimal(seekBar.getProgress());
+                Log.d("CONA",seekBar.getProgress()+"");
                 bd.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-                setting.setThreshold(new BigDecimal(1023).multiply(bd.divide(new BigDecimal(100))));
+                setting.setThreshold(bd);
                 Call<StatusResponse> call = settingsApi.setHomeSettings(setting);
                 call.enqueue(new Callback<StatusResponse>() {
                     @Override
