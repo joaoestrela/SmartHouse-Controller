@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.R;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.LightsApi;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.Light;
+import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.StatusResponse;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.network.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,9 +24,12 @@ import retrofit2.Response;
 
 public class LightActivity extends AppCompatActivity {
 
-    TextView id_textview, textview5;
+    TextView id_textview;
     Toolbar toolbar;
-    ToggleButton toggleButton;
+    Switch onOff_switch;
+    String id_number;
+    Boolean state;
+    String onOff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +40,7 @@ public class LightActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.description_toolbar);
         id_textview = findViewById(R.id.id_textView);
-        textview5 =findViewById(R.id.textView5);
-        toggleButton = findViewById(R.id.automatic_button);
+        onOff_switch = findViewById(R.id.onOff_switch);
 
         if (bundle != null){
             String id = bundle.getString("id");
@@ -47,21 +52,17 @@ public class LightActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Light> call, Response<Light> response) {
                     if (!response.isSuccessful()){
-                        Log.i("Erro de resposta: ", "" + response.code());
+                        Log.i("ERRO DE RESPOSTA: ", "" + response.code());
                     } else {
-                        Log.i("info",response.toString());
-                        toolbar.setTitle(response.body().getDescription().toString());
-                        id_textview.setText(response.body().getId().toString());
-                        //TODO: THIS IS DEPRECATED
-                        /*textview5.setText(response.body().getThreshold().toString());
+                        Log.i("INFO: ",response.toString());
+                        toolbar.setTitle(response.body().getDescription());
 
-                        if (!response.body().isAutomatic()){
-                            toggleButton.setChecked(false);
-                            toggleButton.setBackgroundColor(23);
-                        } else {
-                            toggleButton.setChecked(true);
-                            toggleButton.setBackgroundColor(24);
-                        }*/
+                        id_textview.setText(response.body().getId().toString());
+                        id_number = response.body().getId().toString();
+
+                        onOff_switch.setChecked(response.body().isTurnon());
+                        state = response.body().isTurnon();
+
                     }
                 }
 
@@ -71,5 +72,36 @@ public class LightActivity extends AppCompatActivity {
                 }
             });
         }
+
+        onOff_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+
+                    //Troca o estado de On para Off
+                    if (state){
+                        onOff = "off";
+                    } else {
+                        onOff = "on";
+                    }
+
+                    LightsApi lightsApi = RetrofitClientInstance.getRetrofitInstance().create(LightsApi.class);
+                    Call<StatusResponse> setState = lightsApi.setLightState(id_number, onOff);
+                    setState.enqueue(new Callback<StatusResponse>() {
+                        @Override
+                        public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                            onOff_switch.setEnabled(!state);
+                        }
+
+                        @Override
+                        public void onFailure(Call<StatusResponse> call, Throwable t) {
+
+                        }
+                    });
+
+                }
+            }
+        });
+
     }
 }
