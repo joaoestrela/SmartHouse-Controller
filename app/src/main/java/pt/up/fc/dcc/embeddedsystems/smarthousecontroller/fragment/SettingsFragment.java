@@ -16,7 +16,9 @@ import android.widget.ToggleButton;
 import java.math.BigDecimal;
 
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.R;
+import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.EnvironmentApi;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.SettingsApi;
+import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.SensorData;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.Setting;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.StatusResponse;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.network.RetrofitClientInstance;
@@ -28,12 +30,16 @@ import retrofit2.Response;
 public class SettingsFragment extends Fragment {
 
     SettingsApi settingsApi;
+    EnvironmentApi environmentApi;
     Setting setting;
     ToggleButton toggle;
     TextView seekBar_value;
     SeekBar seekBar;
     TextView setting_message;
     Button btn_apply;
+    TextView temperature;
+    TextView luminosity;
+
 
     public static android.support.v4.app.Fragment newInstance() {
         SettingsFragment fragment = new SettingsFragment();
@@ -45,6 +51,32 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        environmentApi = RetrofitClientInstance.getRetrofitInstance().create(EnvironmentApi.class);
+
+        Call<SensorData> env_call = environmentApi.luminosity();
+        env_call.enqueue(new Callback<SensorData>() {
+            @Override
+            public void onResponse(Call<SensorData> call, Response<SensorData> response) {
+                luminosity.setText(response.body().getValue() + " " + response.body().getUnit());
+            }
+
+            @Override
+            public void onFailure(Call<SensorData> call, Throwable t) {
+
+            }
+        });
+        env_call = environmentApi.temperature();
+        env_call.enqueue(new Callback<SensorData>() {
+            @Override
+            public void onResponse(Call<SensorData> call, Response<SensorData> response) {
+                temperature.setText(response.body().getValue() + " " + response.body().getUnit());
+            }
+
+            @Override
+            public void onFailure(Call<SensorData> call, Throwable t) {
+
+            }
+        });
         settingsApi = RetrofitClientInstance.getRetrofitInstance().create(SettingsApi.class);
         Call<Setting> call = settingsApi.homeSettings();
         call.enqueue(new Callback<Setting>() {
@@ -75,6 +107,8 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view =  inflater.inflate(R.layout.fragment_settings, container, false);
         view.findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+        temperature = view.findViewById(R.id.tv_temperature);
+        luminosity = view.findViewById(R.id.tv_luminosity);
         setting_message = view.findViewById(R.id.settings_message);
         seekBar_value = view.findViewById(R.id.seek_bar_value);
         toggle = view.findViewById(R.id.s_auto);

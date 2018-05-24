@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.R;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.AuthenticationApi;
@@ -34,8 +35,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText et_username, et_password, et_secret;
     private AuthenticationApi authenticationApi;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +42,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         authenticationApi = RetrofitClientInstance.getRetrofitInstance().create(AuthenticationApi.class);
 
-        et_username = findViewById(R.id.user_editText);
-        et_password = findViewById(R.id.passw_editText);
-        et_secret = findViewById(R.id.secret_editText);
+        et_username = findViewById(R.id.input_email);
+        et_password = findViewById(R.id.input_password);
+        et_secret = findViewById(R.id.input_secret);
 
         et_username.addTextChangedListener(new TextWatcher() {
             @Override
@@ -55,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                TextInputLayout textInputLayout = findViewById(R.id.user_inputLayout);
+                TextInputLayout textInputLayout = findViewById(R.id.input_email_layout);
                 if (s.length()==0 || !android.util.Patterns.EMAIL_ADDRESS.matcher(s).matches()){
                     textInputLayout.setErrorEnabled(true);
                     textInputLayout.setError("Invalid username!");
@@ -80,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                TextInputLayout textInputLayout = findViewById(R.id.passw_inputLayout);
+                TextInputLayout textInputLayout = findViewById(R.id.input_password_layout);
                 if (s.length() < 3) {
                     textInputLayout.setErrorEnabled(true);
                     textInputLayout.setError("Too Short");
@@ -107,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                TextInputLayout textInputLayout = findViewById(R.id.user_inputLayout);
+                TextInputLayout textInputLayout = findViewById(R.id.input_secret_layout);
                 if (s.length() == 0){
                     textInputLayout.setErrorEnabled(true);
                     textInputLayout.setError("Invalid secret!");
@@ -139,13 +138,12 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if(et_password.getText().toString().isEmpty()){
-                    TextInputLayout textInputLayout = findViewById(R.id.passw_inputLayout);
+                    TextInputLayout textInputLayout = findViewById(R.id.input_password_layout);
                     textInputLayout.setErrorEnabled(true);
                     textInputLayout.setError("Invalid Password");
                 }
             }
         });
-
     }
 
     public void submitRegister(){
@@ -159,14 +157,20 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                 if(response.code() ==  200) goLoginActivity();
-                else Log.d("Register", response.message());
-
-
+                else {
+                    Log.d("Register", response.message());
+                    TextView error = findViewById(R.id.errorMessage);
+                    error.setText(response.body().toString());
+                    error.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onFailure(Call<StatusResponse> call, Throwable t) {
+
+
                 Log.d("Register", t.getMessage());
+
 
             }
         });
