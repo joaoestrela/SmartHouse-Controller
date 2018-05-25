@@ -44,10 +44,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Luminosity"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="124w3432"/>
+                    android:text="1024" />
             </LinearLayout>
         </LinearLayout>
 

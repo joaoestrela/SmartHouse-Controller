@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (frag != null) {
             ft.replace(R.id.container, frag);
-            //According to Google Material Design Guidelines this shouldn't be a feature!
-            //ft.addToBackStack(null);
             ft.commit();
         }
     }

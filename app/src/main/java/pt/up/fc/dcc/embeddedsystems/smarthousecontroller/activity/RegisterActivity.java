@@ -13,7 +13,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.R;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.AuthenticationApi;
@@ -23,11 +22,6 @@ import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.network.RetrofitClientI
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-
-/**
- * Created by VP on 23/05/2018.
- */
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -158,7 +152,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                 if(response.code() ==  200) goLoginActivity();
                 else {
-                    Log.d("Register", response.message());
+                    Log.d("RegisterActivity", response.message());
                     TextView error = findViewById(R.id.errorMessage);
                     error.setText(response.body().toString());
                     error.setVisibility(View.VISIBLE);
@@ -167,11 +161,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<StatusResponse> call, Throwable t) {
-
-
-                Log.d("Register", t.getMessage());
-
-
+                Log.d("RegisterActivity", t.getMessage());
             }
         });
     }

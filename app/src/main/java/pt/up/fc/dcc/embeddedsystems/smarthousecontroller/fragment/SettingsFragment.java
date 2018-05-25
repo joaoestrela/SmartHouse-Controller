@@ -57,7 +57,7 @@ public class SettingsFragment extends Fragment {
         env_call.enqueue(new Callback<SensorData>() {
             @Override
             public void onResponse(Call<SensorData> call, Response<SensorData> response) {
-                luminosity.setText(response.body().getValue() + " " + response.body().getUnit());
+                luminosity.setText(String.format("%s %s", response.body().getValue(), response.body().getUnit()));
             }
 
             @Override
@@ -69,7 +69,7 @@ public class SettingsFragment extends Fragment {
         env_call.enqueue(new Callback<SensorData>() {
             @Override
             public void onResponse(Call<SensorData> call, Response<SensorData> response) {
-                temperature.setText(response.body().getValue() + " " + response.body().getUnit());
+                temperature.setText(String.format("%s %s", response.body().getValue(), response.body().getUnit()));
             }
 
             @Override
@@ -142,7 +142,6 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(final View view) {
                 BigDecimal bd = new BigDecimal(seekBar.getProgress());
-                bd.setScale(2, BigDecimal.ROUND_HALF_EVEN);
                 setting.setThreshold(bd);
                 Call<StatusResponse> call = settingsApi.setHomeSettings(setting);
                 call.enqueue(new Callback<StatusResponse>() {

@@ -29,13 +29,13 @@ Uses [SmartHouse API](https://app.swaggerhub.com/apis/Evilong/SmartHouse/) to co
 Layout Progress:
 - [x] Login Activity
 - [x] Main Activity
-- [ ] Lights Fragment
-- [ ] Music Fragment
-- [ ] Settings Fragment
+- [x] Lights Fragment
+- [x] Music Fragment
+- [x] Settings Fragment
 
 Functionality Progress:
 - [x] Login Activity
-- [ ] Main Activity
-- [ ] Lights Fragment
-- [ ] Music Fragment
-- [ ] Settings Fragment
+- [x] Main Activity
+- [x] Lights Fragment
+- [x] Music Fragment
+- [x] Settings Fragment
