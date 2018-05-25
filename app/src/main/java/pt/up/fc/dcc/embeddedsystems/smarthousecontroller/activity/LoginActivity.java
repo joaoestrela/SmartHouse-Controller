@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,10 +30,12 @@ public class LoginActivity extends AppCompatActivity {
     private EditText et_password;
     private AuthenticationApi authenticationApi;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         authenticationApi = RetrofitClientInstance.getRetrofitInstance().create(AuthenticationApi.class);
         et_email = findViewById(R.id.input_email);
         et_password = findViewById(R.id.input_password);
@@ -121,6 +125,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void submitLogin(){
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+
         LoginInfo loginInfo = new LoginInfo();
         loginInfo.setUsername(et_email.getText().toString());
         loginInfo.setPassword(et_password.getText().toString());
@@ -129,7 +137,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                 if(response.code() ==  200) goMainActivity();
-                else Log.d("Login", response.message());
+                else {
+                    alertDialog
+                            .setTitle("Login Error")
+                            .setMessage("Login Failed!")
+                            .create().show();
+
+                    Log.d("Login", response.message());
+                }
                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             }
 

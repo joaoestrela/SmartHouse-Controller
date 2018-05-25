@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -146,16 +147,21 @@ public class RegisterActivity extends AppCompatActivity {
         registrationInfo.setPassword(et_password.getText().toString());
         registrationInfo.setSecret(et_secret.getText().toString());
 
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
         Call<StatusResponse> new_register = authenticationApi.register(registrationInfo);
         new_register.enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                 if(response.code() ==  200) goLoginActivity();
                 else {
+                    alertDialog
+                            .setTitle("Register Error")
+                            .setMessage("Register Failed! Get the correct Secret")
+                            .create().show();
+
                     Log.d("RegisterActivity", response.message());
-                    TextView error = findViewById(R.id.errorMessage);
-                    error.setText(response.body().toString());
-                    error.setVisibility(View.VISIBLE);
+
                 }
             }
 
