@@ -24,11 +24,11 @@
                 android:gravity="center"
                 android:layout_marginHorizontal="20dp">
                 <TextView
-                    android:id="@+id/tv_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Temperature"/>
                 <TextView
+                    android:id="@+id/tv_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0 C"/>
@@ -40,12 +40,11 @@
                 android:gravity="center"
                 android:layout_marginHorizontal="20dp">
                 <TextView
-                    android:id="@+id/tv_luminosity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Luminosity"/>
-
                 <TextView
+                    android:id="@+id/tv_luminosity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1024" />

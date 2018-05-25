@@ -27,7 +27,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.RegisterActivity"
-            android:label="Register Activity"
+            android:label="Smart House Controller - Register"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
     </application>

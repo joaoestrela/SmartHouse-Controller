@@ -37,8 +37,8 @@ public class SettingsFragment extends Fragment {
     SeekBar seekBar;
     TextView setting_message;
     Button btn_apply;
-    TextView temperature;
-    TextView luminosity;
+    TextView tv_temperature;
+    TextView tv_luminosity;
 
 
     public static android.support.v4.app.Fragment newInstance() {
@@ -57,7 +57,7 @@ public class SettingsFragment extends Fragment {
         env_call.enqueue(new Callback<SensorData>() {
             @Override
             public void onResponse(Call<SensorData> call, Response<SensorData> response) {
-                luminosity.setText(String.format("%s %s", response.body().getValue(), response.body().getUnit()));
+                tv_luminosity.setText(String.format("%s %s", response.body().getValue(), response.body().getUnit()));
             }
 
             @Override
@@ -69,7 +69,7 @@ public class SettingsFragment extends Fragment {
         env_call.enqueue(new Callback<SensorData>() {
             @Override
             public void onResponse(Call<SensorData> call, Response<SensorData> response) {
-                temperature.setText(String.format("%s %s", response.body().getValue(), response.body().getUnit()));
+                tv_temperature.setText(String.format("%s %s", response.body().getValue(), response.body().getUnit()));
             }
 
             @Override
@@ -107,8 +107,8 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view =  inflater.inflate(R.layout.fragment_settings, container, false);
         view.findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
-        temperature = view.findViewById(R.id.tv_temperature);
-        luminosity = view.findViewById(R.id.tv_luminosity);
+        tv_temperature = view.findViewById(R.id.tv_temperature);
+        tv_luminosity = view.findViewById(R.id.tv_luminosity);
         setting_message = view.findViewById(R.id.settings_message);
         seekBar_value = view.findViewById(R.id.seek_bar_value);
         toggle = view.findViewById(R.id.s_auto);
