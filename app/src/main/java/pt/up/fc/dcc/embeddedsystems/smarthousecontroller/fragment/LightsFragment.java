@@ -42,14 +42,10 @@ public class LightsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lights, container, false);
-
         listView = view.findViewById(R.id.ListViewLights);
-
         LightsApi lightsApi = RetrofitClientInstance.getRetrofitInstance().create(LightsApi.class);
-
         final Call<List<Light>> requestLights = lightsApi.getLights();
         requestLights.enqueue(new Callback<List<Light>>() {
-
             @Override
             public void onResponse(Call<List<Light>> call, Response<List<Light>> response) {
                 if (!response.isSuccessful()) {
@@ -62,13 +58,11 @@ public class LightsFragment extends Fragment {
                     listView.setAdapter(mAdapter);
                 }
             }
-
             @Override
             public void onFailure(Call<List<Light>> call, Throwable t) {
                 Log.e("LightsFragment",t.getMessage());
                 Toast.makeText(getContext(),t.toString(),Toast.LENGTH_LONG).show();
             }
-
         });
         return view;
     }

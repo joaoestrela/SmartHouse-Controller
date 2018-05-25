@@ -40,33 +40,28 @@ public class LightAdapter extends ArrayAdapter<Light>{
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
-        if(listItem == null)
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item_button,parent,false);
-
+        if(listItem == null) listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item_button,parent,false);
         final Light currentLight = lightsList.get(position);
-
         TextView listItemText = listItem.findViewById(R.id.list_item_string);
         listItemText.setText(currentLight.getDescription());
-
-        ToggleButton toggleButton = listItem.findViewById(R.id.btn_toggle);
+        final ToggleButton toggleButton = listItem.findViewById(R.id.btn_toggle);
         toggleButton.setChecked(currentLight.isTurnon());
-        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(final CompoundButton compoundButton, boolean b) {
-                compoundButton.setEnabled(false);
+            public void onClick(View view) {
+                toggleButton.setEnabled(false);
                 LightsApi lightsApi = RetrofitClientInstance.getRetrofitInstance().create(LightsApi.class);
-                if(b){
+                if(toggleButton.isChecked()){
                     Call<StatusResponse> call = lightsApi.setLightState(currentLight.getId().toString(),"on");
                     call.enqueue(new Callback<StatusResponse>() {
                         @Override
                         public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
-                            compoundButton.setEnabled(true);
+                            toggleButton.setEnabled(true);
                         }
-
                         @Override
                         public void onFailure(Call<StatusResponse> call, Throwable t) {
-                            compoundButton.setChecked(false);
-                            compoundButton.setEnabled(true);
+                            toggleButton.setChecked(false);
+                            toggleButton.setEnabled(true);
                             Log.e("LightsFragment",t.getMessage());
                             Toast.makeText(getContext(),t.toString(),Toast.LENGTH_SHORT).show();
                         }
@@ -77,22 +72,20 @@ public class LightAdapter extends ArrayAdapter<Light>{
                     call.enqueue(new Callback<StatusResponse>() {
                         @Override
                         public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
-                            compoundButton.setEnabled(true);
+                            toggleButton.setEnabled(true);
                         }
 
                         @Override
                         public void onFailure(Call<StatusResponse> call, Throwable t) {
-                            compoundButton.setChecked(true);
-                            compoundButton.setEnabled(true);
+                            toggleButton.setChecked(true);
+                            toggleButton.setEnabled(true);
                             Log.e("LightsFragment",t.getMessage());
                             Toast.makeText(getContext(),t.toString(),Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
-
             }
         });
-
         return listItem;
     }
 }
