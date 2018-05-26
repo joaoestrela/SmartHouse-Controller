@@ -3,7 +3,6 @@ package pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api;
 import java.util.List;
 
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.MusicPlayerStatus;
-import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.StatusResponse;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.Track;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -39,13 +38,13 @@ public interface MusicApi {
    * 
    * play track based on query
    * @param trackId  (required)
-   * @return Call&lt;StatusResponse&gt;
+   * @return Call&lt;MusicPlayerStatus&gt;
    */
   @Headers({
     "Content-Type:application/json"
   })
   @PUT("music/play")
-  Call<StatusResponse> playTrack(
+  Call<MusicPlayerStatus> playTrack(
     @retrofit2.http.Query("trackId") Integer trackId
   );
 

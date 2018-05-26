@@ -22,30 +22,30 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * MusicPlayerStatus
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-22T13:13:59.440Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-26T22:03:57.606Z")
 public class MusicPlayerStatus {
-  @SerializedName("status")
-  private Boolean status = null;
+  @SerializedName("State")
+  private Boolean state = null;
 
-  @SerializedName("track")
+  @SerializedName("Track")
   private Track track = null;
 
-  public MusicPlayerStatus status(Boolean status) {
-    this.status = status;
+  public MusicPlayerStatus state(Boolean state) {
+    this.state = state;
     return this;
   }
 
    /**
-   * Get status
-   * @return status
+   * Get state
+   * @return state
   **/
   @ApiModelProperty(required = true, value = "")
-  public Boolean isStatus() {
-    return status;
+  public Boolean isState() {
+    return state;
   }
 
-  public void setStatus(Boolean status) {
-    this.status = status;
+  public void setState(Boolean state) {
+    this.state = state;
   }
 
   public MusicPlayerStatus track(Track track) {
@@ -57,7 +57,7 @@ public class MusicPlayerStatus {
    * Get track
    * @return track
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   public Track getTrack() {
     return track;
   }
@@ -76,13 +76,13 @@ public class MusicPlayerStatus {
       return false;
     }
     MusicPlayerStatus musicPlayerStatus = (MusicPlayerStatus) o;
-    return Objects.equals(this.status, musicPlayerStatus.status) &&
+    return Objects.equals(this.state, musicPlayerStatus.state) &&
         Objects.equals(this.track, musicPlayerStatus.track);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, track);
+    return Objects.hash(state, track);
   }
 
 
@@ -91,7 +91,7 @@ public class MusicPlayerStatus {
     StringBuilder sb = new StringBuilder();
     sb.append("class MusicPlayerStatus {\n");
     
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    track: ").append(toIndentedString(track)).append("\n");
     sb.append("}");
     return sb.toString();
