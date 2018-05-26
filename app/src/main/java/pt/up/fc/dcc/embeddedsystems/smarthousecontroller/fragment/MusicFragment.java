@@ -65,15 +65,15 @@ public class MusicFragment extends Fragment {
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<MusicPlayerStatus> call = musicApi.setMusicState("on");
-                call.enqueue(new Callback<MusicPlayerStatus>() {
+                Call<StatusResponse> call = musicApi.playTrack(musicPlayerStatus.getTrack().getId());
+                call.enqueue(new Callback<StatusResponse>() {
                     @Override
-                    public void onResponse(Call<MusicPlayerStatus> call, Response<MusicPlayerStatus> response) {
+                    public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                         updateMusicDisplay(getView());
                     }
 
                     @Override
-                    public void onFailure(Call<MusicPlayerStatus> call, Throwable t) {
+                    public void onFailure(Call<StatusResponse> call, Throwable t) {
                         getView().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                         Log.e("MusicFragment",t.getMessage());
                         Toast.makeText(getView().getContext(),t.toString(),Toast.LENGTH_LONG).show();
