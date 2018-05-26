@@ -2,6 +2,7 @@ package pt.up.fc.dcc.embeddedsystems.smarthousecontroller.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class PlaylistActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Track>> call, Throwable t) {
-
+                Log.d("PlaylistActivity", t.getMessage());
             }
         });
     }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import java.util.List;
 
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.MusicApi;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.MusicPlayerStatus;
-import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.StatusResponse;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.Track;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.network.RetrofitClientInstance;
 import retrofit2.Call;
@@ -53,13 +53,12 @@ public class TrackAdapter extends  ArrayAdapter<Track>{
                 call.enqueue(new Callback<MusicPlayerStatus>() {
                     @Override
                     public void onResponse(Call<MusicPlayerStatus> call, Response<MusicPlayerStatus> response) {
-                        Activity activity = (Activity)view.getParent();
-                        activity.finish();
+                        ((Activity)(mContext)).finish();
                     }
 
                     @Override
                     public void onFailure(Call<MusicPlayerStatus> call, Throwable t) {
-
+                        Log.d("TrackAdapter", t.getMessage());
                     }
                 });
             }

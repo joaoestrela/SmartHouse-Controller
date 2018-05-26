@@ -15,7 +15,6 @@ import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.R;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.activity.PlaylistActivity;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.api.MusicApi;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.MusicPlayerStatus;
-import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.model.StatusResponse;
 import pt.up.fc.dcc.embeddedsystems.smarthousecontroller.network.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;

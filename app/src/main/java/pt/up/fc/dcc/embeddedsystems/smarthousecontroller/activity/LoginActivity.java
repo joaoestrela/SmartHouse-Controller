@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<StatusResponse> call, Throwable t) {
-                Log.d("Login", t.getMessage());
+                Log.d("LoginActivity", t.getMessage());
                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             }
         });
