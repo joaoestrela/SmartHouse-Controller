@@ -107,7 +107,7 @@ public class MusicFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), PlaylistActivity.class);
                 intent.putExtra("activeMusic",musicPlayerStatus.getTrack().getId());
-                startActivity(intent);
+                startActivityForResult(intent,555);
             }
         });
         return view;
@@ -141,5 +141,11 @@ public class MusicFragment extends Fragment {
                 Toast.makeText(getContext(),t.toString(),Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        updateMusicPlayerStatus();
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

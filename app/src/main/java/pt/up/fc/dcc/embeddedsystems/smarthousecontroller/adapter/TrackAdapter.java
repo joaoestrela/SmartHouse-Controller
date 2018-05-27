@@ -38,7 +38,7 @@ public class TrackAdapter extends  ArrayAdapter<Track>{
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         View listItem = convertView;
         if(listItem == null) listItem = LayoutInflater.from(mContext).inflate(android.R.layout.simple_list_item_1,parent,false);
         if(position == active-1) listItem.setBackgroundColor(Color.DKGRAY);
@@ -53,7 +53,9 @@ public class TrackAdapter extends  ArrayAdapter<Track>{
                 call.enqueue(new Callback<MusicPlayerStatus>() {
                     @Override
                     public void onResponse(Call<MusicPlayerStatus> call, Response<MusicPlayerStatus> response) {
-                        ((Activity)(mContext)).finish();
+                        if( mContext instanceof Activity ){
+                            ((Activity)(mContext)).finish();
+                        }
                     }
 
                     @Override

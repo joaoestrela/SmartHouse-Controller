@@ -1,5 +1,6 @@
 package pt.up.fc.dcc.embeddedsystems.smarthousecontroller.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,10 +24,12 @@ public class PlaylistActivity extends AppCompatActivity {
     private TrackAdapter mAdapter;
     private ArrayList<Track> musicList;
     MusicApi musicApi;
+    private Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = this;
         setContentView(R.layout.activity_playlist);
         listView = findViewById(R.id.playlist);
         musicApi = RetrofitClientInstance.getRetrofitInstance().create(MusicApi.class);
@@ -36,7 +39,7 @@ public class PlaylistActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Track>> call, Response<List<Track>> response) {
                 musicList.addAll(response.body());
-                mAdapter = new TrackAdapter(getApplicationContext(),musicList,getIntent().getIntExtra("activeMusic",0));
+                mAdapter = new TrackAdapter(activity,musicList,getIntent().getIntExtra("activeMusic",0));
                 listView.setAdapter(mAdapter);
             }
 
